@@ -1,23 +1,33 @@
 import axios from "axios";
-import React, { useEffect } from 'react';
+import  { useEffect, useState } from 'react';
 
 
 export default function App() {
-  const musicLibrary = async () => {
-    let library =
-      await axios.get('http://www.devcodecampmusiclibrary.com/api/music')
-        .then((response) => response.data)
-        .catch(err => {
-          console.log("ERROR in API call: ")
-          console.error(err)
-        });
-    console.log(library)
+
+  const [musicLibrary, setmusicLibrary] = useState([{}]);
+  const musicAPI = async () => {
+    let library = await axios.get('http://www.devcodecampmusiclibrary.com/api/music');
+        // .then((response) => response.data)
+        // .catch(err => {
+        //   console.log("ERROR in API call: ")
+        //   console.error(err)
+        // });
+        console.log(library.data)
+        setmusicLibrary(library.data)
   }
 
+  useEffect(() => {
+    musicAPI();
+  },[]);
 
-  musicLibrary()
   return (
-    <div className="App">App</div>
+    <div className="App">{musicLibrary.map((song, index) => {
+      return(
+        <div key={index}>
+          <span>{song.title}</span>  
+        </div>
+      )
+    })}</div>
   )
 
 }
