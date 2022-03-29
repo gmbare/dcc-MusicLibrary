@@ -1,33 +1,92 @@
 import axios from "axios";
-import  { useEffect, useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import SearchBar from "./Components/SearchBar/SearchBar";
+import DisplayTable from "./Components/DisplayTable/DisplayTable";
 
 export default function App() {
-
+  //Album, Artist, Genre, ID, releaseDate, title//
   const [musicLibrary, setmusicLibrary] = useState([{}]);
+  const [searchedLibrary, setSearchedLibrary] = useState([{}]);
   const musicAPI = async () => {
     let library = await axios.get('http://www.devcodecampmusiclibrary.com/api/music');
-        // .then((response) => response.data)
-        // .catch(err => {
-        //   console.log("ERROR in API call: ")
-        //   console.error(err)
-        // });
-        console.log(library.data)
-        setmusicLibrary(library.data)
+    // .then((response) => response.data)
+    // .catch(err => {
+    //   console.log("ERROR in API call: ")
+    //   console.error(err)
+    // });
+    setmusicLibrary(library.data)
+    setSearchedLibrary(library.data)
   }
+
+
 
   useEffect(() => {
     musicAPI();
-  },[]);
+  }, []);
+
+
+  function alterSearch(searchTerm, searchFilter) {
+    if (searchTerm == '') {
+      setSearchedLibrary(musicLibrary)
+    }
+    else {
+      searchTerm = searchTerm.toLowerCase()
+      console.log(searchTerm)
+      if (searchFilter == 'all') {
+        // .flat 
+        setSearchedLibrary([...songSearch(searchTerm), ...(artistSearch(searchTerm)), ...(albumSearch(searchTerm)), ...(genreSearch(searchTerm)), ...(releaseDateSearch(searchTerm))])
+        // searchArray = ([...searchArray,])
+        // searchArray = ([...searchArray,])
+        // searchArray = ([...searchArray])
+      }
+      else if (searchFilter == 'title') {
+        setSearchedLibrary(songSearch(searchTerm))
+      }
+      else if (searchFilter == 'artist') {
+        setSearchedLibrary(artistSearch(searchTerm))
+      }
+      else if (searchFilter == 'album') {
+        setSearchedLibrary(albumSearch(searchTerm))
+      }
+      else if (searchFilter == 'genre') {
+        setSearchedLibrary(genreSearch(searchTerm))
+      }
+      else if (searchFilter == 'releaseDate') {
+        setSearchedLibrary(releaseDateSearch(searchTerm))
+      }
+    }
+  }
+
+  function songSearch(searchTerm) {
+    return (musicLibrary.filter(searchString => searchString.title.toLowerCase().includes(searchTerm)))
+  }
+  function artistSearch(searchTerm) {
+    return (musicLibrary.filter(searchString => searchString.artist.toLowerCase().includes(searchTerm)))
+  }
+  function albumSearch(searchTerm) {
+    return (musicLibrary.filter(searchString => searchString.album.toLowerCase().includes(searchTerm)))
+  }
+  function genreSearch(searchTerm) {
+    return (musicLibrary.filter(searchString => searchString.genre.toLowerCase().includes(searchTerm)))
+  }
+  function releaseDateSearch(searchTerm) {
+    return (musicLibrary.filter(searchString => searchString.releaseDate.toLowerCase().includes(searchTerm)))
+  }
+
+  // console.log(musicLibrary)
 
   return (
-    <div className="App">{musicLibrary.map((song, index) => {
+    <div className="App">
+      <SearchBar alterSearch={alterSearch} />
+      <DisplayTable musicLibrary={searchedLibrary}></DisplayTable>
+      {/* {musicLibrary.map((song, index) => {
       return(
         <div key={index}>
-          <span>{song.title}</span>  
+          <span>{song.title},{song.artist}</span>  
         </div>
       )
-    })}</div>
+    })} */}
+    </div>
   )
 
 }

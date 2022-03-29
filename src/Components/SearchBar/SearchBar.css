@@ -1,0 +1,13 @@
+input {
+    text-align: center;
+    border:1px;
+    border-color: rgb(92, 173, 146);
+    border-style: groove;
+}
+select{
+    border-color: rgb(92, 173, 146);
+    border-style: groove;
+}
+div {
+    text-align: center;
+}
