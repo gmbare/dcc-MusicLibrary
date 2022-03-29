@@ -13,14 +13,29 @@ const SearchBar = (props) => {
 
     return (
             <div className='entry' onChange={handleChange}>
-                <input type="text" id="searchString" name="searchString"/><label className='below' htmlFor='searchString'>Search</label><select name="searchFilter" id='searchFilter' list="value">
+                <table className='searchtable'>
+                    <thead>
+                        <tr>
+                    <th><input type="text" id="searchString" name="searchString"/></th>
+                    <th><select name="searchFilter" id='searchFilter' list="value">
                     <option value="all">All</option>
                     <option value="title">Song</option>
                     <option value="artist">Artist</option>
                     <option value="album">Album</option>
                     <option value="genre">Genre</option>
                     <option value="releaseDate">Release Date</option>
-                </select><label className='below' htmlFor='searchFilter'>Filter</label>
+                </select></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th><label className='below' for='searchString'>Search</label></th>
+                            <th><label className='below' for='searchFilter'>Filter</label></th>
+                        </tr>
+                    </tbody>
+
+
+                </table>
             </div>
     );
 }

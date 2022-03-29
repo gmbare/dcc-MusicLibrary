@@ -34,10 +34,14 @@ export default function App() {
       console.log(searchTerm)
       if (searchFilter == 'all') {
         // .flat 
-        setSearchedLibrary([...songSearch(searchTerm), ...(artistSearch(searchTerm)), ...(albumSearch(searchTerm)), ...(genreSearch(searchTerm)), ...(releaseDateSearch(searchTerm))])
+        let tempSave = new Set([...songSearch(searchTerm), ...(artistSearch(searchTerm)), ...(albumSearch(searchTerm)), ...(genreSearch(searchTerm)), ...(releaseDateSearch(searchTerm))])
+        setSearchedLibrary([...tempSave])
+        // setSearchedLibrary(new Set([...songSearch(searchTerm), ...(artistSearch(searchTerm)), ...(albumSearch(searchTerm)), ...(genreSearch(searchTerm)), ...(releaseDateSearch(searchTerm))]))
         // searchArray = ([...searchArray,])
         // searchArray = ([...searchArray,])
         // searchArray = ([...searchArray])
+
+        //Set - will only hold unique values
       }
       else if (searchFilter == 'title') {
         setSearchedLibrary(songSearch(searchTerm))

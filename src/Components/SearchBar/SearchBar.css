@@ -1,13 +1,25 @@
 input {
     text-align: center;
+    border-radius: 1em;
     border:1px;
     border-color: rgb(92, 173, 146);
     border-style: groove;
 }
 select{
+    border-radius: 1em;
     border-color: rgb(92, 173, 146);
     border-style: groove;
 }
 div {
     text-align: center;
+}
+.below{
+    position: relative;
+    top: 10%;
+}
+
+.searchtable{  
+    left:50%;
+    text-align: center;
+
 }

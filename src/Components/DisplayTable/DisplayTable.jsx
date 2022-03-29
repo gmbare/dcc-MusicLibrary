@@ -3,7 +3,7 @@ import './DisplayTable.css'
 
 const DisplayTable = (props) => {
     return (
-        <table className='table'>
+        <table className='displaytable'>
             <thead>
                 <tr>
                     <th>Song Name</th>
