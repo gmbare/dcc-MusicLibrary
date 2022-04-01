@@ -8,7 +8,7 @@ export default function App() {
   const [musicLibrary, setmusicLibrary] = useState([{}]);
   const [searchedLibrary, setSearchedLibrary] = useState([{}]);
   const musicAPI = async () => {
-    let library = await axios.get('http://www.devcodecampmusiclibrary.com/api/music');
+    let library = await axios.get('http://localhost:5010/api/songs');
     // .then((response) => response.data)
     // .catch(err => {
     //   console.log("ERROR in API call: ")
