@@ -1,9 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from 'react';
 import SearchBar from "./Components/SearchBar/SearchBar";
-// import DisplayTable from "./Components/DisplayTable/DisplayTable_bkup.jsx";
-import DisplayTable from "./Components/DisplayTable/DisplayTable.jsx";
-import NewSong from "./Components/NewSong/NewSong";
+import DisplayTable from "./Components/DisplayTable/DisplayTable_bkup.jsx";
 // import DisplayTable from "./Components/DisplayTable/DisplayTable_broken";
 
 export default function App() {
@@ -21,7 +19,11 @@ export default function App() {
     setSearchedLibrary(library.data)
   }
 
+  // const apiPUT = async (id, update) => {
+    
 
+
+  // }
 
   useEffect(() => {
     musicAPI();
@@ -84,15 +86,8 @@ export default function App() {
 
   return (
     <div className="App">
-      <div>
       <SearchBar alterSearch={alterSearch} />
-      </div>
-      <div>
-      <DisplayTable musicLibrary={searchedLibrary}></DisplayTable>
-      </div>
-      <div>
-      <NewSong></NewSong>
-      </div>
+      <DisplayTable musicLibrary={searchedLibrary} apiPUT={apiPUT} apiDELETE={apiDELETE}></DisplayTable>
 
     </div>
   )
