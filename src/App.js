@@ -26,6 +26,11 @@ export default function App() {
     musicAPI();
   }
 
+  const postAPI = async(content) => {
+    let postage = await axios.post(`http://localhost:5010/api/songs/`, content);
+    musicAPI();
+  }
+
 
   useEffect(() => {
     musicAPI();
@@ -95,7 +100,7 @@ export default function App() {
       <DisplayTable musicLibrary={searchedLibrary} deleteAPI={deleteAPI}></DisplayTable>
       </div>
       <div>
-      <NewSong></NewSong>
+      <NewSong postAPI={postAPI}></NewSong>
       </div>
 
     </div>
