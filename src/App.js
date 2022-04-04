@@ -21,6 +21,10 @@ export default function App() {
     setSearchedLibrary(library.data)
   }
 
+  const deleteAPI = async(id) => {
+    let deletion = await axios.delete(`http://localhost:5010/api/songs/${id}`);
+    musicAPI();
+  }
 
 
   useEffect(() => {
@@ -88,7 +92,7 @@ export default function App() {
       <SearchBar alterSearch={alterSearch} />
       </div>
       <div>
-      <DisplayTable musicLibrary={searchedLibrary}></DisplayTable>
+      <DisplayTable musicLibrary={searchedLibrary} deleteAPI={deleteAPI}></DisplayTable>
       </div>
       <div>
       <NewSong></NewSong>
@@ -98,6 +102,7 @@ export default function App() {
   )
 
 }
+
 // export default class MusicLibrary extends React.Component{
 
 // state = {

@@ -27,29 +27,27 @@ td{
     /* border-radius: 2em; */
 }
 
+
 tr:hover .remove_background {
-    background-color: greenyellow;
+    background-color: #04AA6D;
 }
 tr:hover {
-    background-color: greenyellow;
+    background-color: #04AA6D;
 }
 
 .remove_background{
-    width:100%;
-    height:100%;
     background-color: white;
-    border-radius: 0%;
-    border:0em;
-
+    border-radius: .1em;
+    border:.1em;
+    border-style: solid;
+    border-color: aqua;
 }
 
-.nodisplay{
-    display:none;
-}
-.yesdisplay{
-    display:initial;
-}
-
-.deleteform:hover{
-    background-color: red;
+.btn_background{
+    width:100%;
+    background-color: white;
+    border-radius: .1em;
+    border:.1em;
+    border-style: solid;
+    border-color: white;
 }

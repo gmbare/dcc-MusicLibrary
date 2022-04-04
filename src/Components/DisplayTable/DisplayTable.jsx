@@ -4,38 +4,26 @@ import './DisplayTable.css'
 
 const DisplayTable = (props) => {
     
-    const [showForm,setShowForm] = useState('nodisplay')
-    const [showButton,setShowButton] = useState('yesdisplay')
-    function handleSubmit(event, id, num){
+    function handleSubmit(event){
         event.preventDefault();
     }
-    
-    function swapButton(){
-        setShowButton((showButton) => (showButton === 'yesdisplay'?'nodisplay':'yesdisplay'))
-        setShowForm((showForm) => (showForm === 'yesdisplay'?'nodisplay':'yesdisplay'))
-    }
-    function handleKeyDown(event) {
-        if (event.key === 'Enter'){
-           console.log(`${event.target.value} AND: ${event.target.id} AND ${event.target.name}`)
-           setShowButton((showButton) => (showButton === 'yesdisplay'?'nodisplay':'yesdisplay'))
-           setShowForm((showForm) => (showForm === 'yesdisplay'?'nodisplay':'yesdisplay'))
-        }
-        else if (event.key === 'Escape'){
-            console.log(`${event.target.value} AND: ${event.target.id} AND ${event.target.name}`)
-            setShowForm((showForm) => (showForm === 'yesdisplay'?'nodisplay':'yesdisplay'))
-            setShowButton((showButton) => (showButton === 'yesdisplay'?'nodisplay':'yesdisplay'))
-         }
-    }
 
-    function handleDelete(event, id){
-        console.log(`Deleting entry ID:${id} from the database`)
-        swapButton()
+    function handleMouseOver(event, id){
+        document.getElementById(id).style.backgroundColor = "red";
+        document.getElementById(id).value = "X";
     }
-
+    function handleMouseLeave(id){
+        document.getElementById(id).style.backgroundColor = "white";
+        document.getElementById(id).value = id;
+    }
+    function DeleteSong(id){
+        console.log("Deleting song with ID of : " + id)
+        props.deleteAPI(id)
+    }
 
     return (
         <form onSubmit={handleSubmit}>
-        <table className='displaytable'>
+            <table className='displaytable'>
             <thead>
                 <tr>
                     <th><input type="radio" id='id' name="sort" /> <label htmlFor='title'>id</label></th>
@@ -50,23 +38,12 @@ const DisplayTable = (props) => {
                 {props.musicLibrary.map((entry, index) => {
                     return (
                         <tr key={index}>
-                            {/* <td>{entry.id}</td>
-                            <td>{entry.id}</td>
-                            <td>{entry.id}</td>
-                            <td>{entry.id}</td>
-                            <td>{entry.id}</td>
-                            <td>{entry.id}</td> */}
-                            <td><input type='button' value={JSON.stringify(entry.id)} className={`${showButton} remove_background`} id={JSON.stringify(entry.id)} name={JSON.stringify(entry.id)}onClick={swapButton}/><input type='button' defaultValue={entry.id} id={JSON.stringify(entry.id)} name='id:' className={`${showForm} titleForm deleteform`} onClick={(event) => handleDelete(event, entry.id)}/> </td>
-                            {/* <td><input type='button' value={JSON.stringify(entry.id)} className='remove_background' id={JSON.stringify(entry.id)} name={JSON.stringify(entry.id)} onClick={(event) => handleSubmit(event, entry.id)}/></td> */}
-                            <td><input type='button' value={entry.title} className={`${showButton} remove_background`} id={entry.title} name={JSON.stringify(entry.id)} onClick={swapButton}/><input type='text' defaultValue={entry.title} id={JSON.stringify(entry.id)} name='title:' className={`${showForm} titleForm`} onKeyDown={(event) => handleKeyDown(event, entry.id, 'title:')}/></td>
-                            <td><input type='button' value={entry.album} className={`${showButton} remove_background`} id={entry.album} name={JSON.stringify(entry.id)} onClick={swapButton}/><input type='text' defaultValue={entry.album} id={JSON.stringify(entry.id)} name='album:' className={`${showForm} titleForm`} onKeyDown={(event) => handleKeyDown(event, entry.id, 'title:')}/></td>
-                            <td><input type='button' value={entry.artist} className={`${showButton} remove_background`} id={entry.artist} name={JSON.stringify(entry.id)} onClick={swapButton}/><input type='text' defaultValue={entry.artist} id={JSON.stringify(entry.id)} name='artist:' className={`${showForm} titleForm`} onKeyDown={(event) => handleKeyDown(event, entry.id, 'title:')}/></td>
-                            <td><input type='button' value={entry.genre} className={`${showButton} remove_background`} id={entry.genre} name={JSON.stringify(entry.id)} onClick={swapButton}/><input type='text' defaultValue={entry.genre} id={JSON.stringify(entry.id)} name='genre:' className={`${showForm} titleForm`} onKeyDown={(event) => handleKeyDown(event, entry.id, 'title:')}/></td>
-                            <td><input type='button' value={entry.releaseDate} className={`${showButton} remove_background`} id={entry.releaseDate} name={JSON.stringify(entry.id)} onClick={swapButton}/><input type='text' defaultValue={entry.releaseDate} id={JSON.stringify(entry.id)} name='releaseDate:' className={`${showForm} titleForm`} onKeyDown={(event) => handleKeyDown(event, entry.id, 'title:')}/></td>
-                            {/* <td><input type='button' value={entry.artist} className='remove_background' name={JSON.stringify(entry.id)} onClick={(event) => handleSubmit(event, entry.id)}/></td>
-                            <td><input type='button' value={entry.album} className='remove_background' name={JSON.stringify(entry.id)} onClick={(event) => handleSubmit(event, entry.id)}/></td>
-                            <td><input type='button' value={entry.genre} className='remove_background' name={JSON.stringify(entry.id)} onClick={(event) => handleSubmit(event, entry.id)}/></td>
-                            <td><input type='button' value={entry.releaseDate} className='remove_background' name={JSON.stringify(entry.id)} onClick={(event) => handleSubmit(event, entry.id)}/></td> */}
+                        <td><button type="button" className={`btn_background`} id={JSON.stringify(entry.id)} name={JSON.stringify(entry.id)} onMouseOver={(event) => handleMouseOver(event, JSON.stringify(entry.id))} onMouseLeave={() => handleMouseLeave(JSON.stringify(entry.id))} onClick={() => DeleteSong(entry.id)}>{JSON.stringify(entry.id)}</button></td>
+                        <td className='remove_background'>{entry.title}</td>
+                        <td className='remove_background'>{entry.album}</td>
+                        <td className='remove_background'>{entry.artist}</td>
+                        <td className='remove_background'>{entry.genre}</td>
+                        <td className='remove_background'>{entry.releaseDate}</td>
                         </tr>
                     );
                 })}
